@@ -59,13 +59,27 @@ namespace My7zip
         private void bt_Descomprimir_Click(object sender, EventArgs e)
         {
             Model descomp = new Model();
-            descomp.descomprime(tb_Ficheiro.Text, tb_CaminhoDir.Text);
+            try
+            {
+                descomp.descomprime(tb_Ficheiro.Text, tb_CaminhoDir.Text);
+            }
+            catch(Exception ex)
+            {
+                MessageBox.Show("O nome de ficheiro a descomprimir não pode estar vazio");
+            }
         }
 
         private void bt_Comprimir_Click(object sender, EventArgs e)
         {
             Model comp = new Model();
-            comp.comprime(tb_FicheiroComp.Text, tb_DirComp.Text);
+            try
+            {
+                comp.comprime(tb_FicheiroComp.Text, tb_DirComp.Text);
+            }
+            catch(Exception ex)
+            {
+                MessageBox.Show("O nome do diretório a comprimir não pode estar vazio");
+            }
         }
 
         private void sair()
@@ -76,30 +90,5 @@ namespace My7zip
                 this.Close();
             }
         }
-
-        #region Gets
-        //gets dos texbox com os caminhos de ficheiros e diretórios
-
-        public string getTb_Ficheiro()
-        {
-            return tb_Ficheiro.Text;
-        }
-
-        public string getTb_CaminhoDir()
-        {
-            return tb_CaminhoDir.Text;
-        }
-
-        public string getTb_DirComp()
-        {
-            return tb_DirComp.Text;
-        }
-
-        public string getTb_FicheiroComp()
-        {
-            return tb_FicheiroComp.Text;
-        }
-        #endregion
-
     }
 }
