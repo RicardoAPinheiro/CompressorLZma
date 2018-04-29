@@ -243,6 +243,8 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(513, 369);
             this.Controls.Add(this.tab_Geral);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.MaximizeBox = false;
             this.Name = "My7zip";
             this.Text = "My7Zip";
             this.Load += new System.EventHandler(this.My7z_Load);
