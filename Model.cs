@@ -34,8 +34,7 @@ namespace My7zip
             SevenZipCompressor.SetLibraryPath(LibraryPath);
             SevenZipCompressor comprimir = new SevenZipCompressor();
             comprimir.ArchiveFormat = OutArchiveFormat.SevenZip;
-            //comprimir.CompressionMode = SevenZip.CompressionMode.Create;
-            comprimir.CompressionMethod = CompressionMethod.Lzma;
+            comprimir.CompressionMode = SevenZip.CompressionMode.Create;
             comprimir.TempFolderPath = tempPath;
             comprimir.Compressing += new EventHandler<ProgressEventArgs>(compressStatus);
             comprimir.CompressionFinished += new EventHandler<EventArgs>(msg.fimCompressão);
