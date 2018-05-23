@@ -1,17 +1,18 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using SevenZip;
+using System.Windows.Forms;
+
 
 
 namespace My7zip
 {
-    class Model
+    class Model: IModel
     {
         private const string LibraryPath = @"c:\programas\7-zip\7z64.dll";
         private string tempPath = @"c:\temp\";
-        Alertas msg = new Alertas();
+        IAlertas msg = new Alertas();
+        My7zip statusCompDescomp = new My7zip();
+
 
         public Model()
         {
@@ -19,10 +20,7 @@ namespace My7zip
 
         public void descomprime(string ficheiro, string diretorio)
         {
-            if (string.IsNullOrEmpty(diretorio))
-            {
-                diretorio = diretorioDefeito(ficheiro, diretorio);
-            }
+           
             SevenZipExtractor.SetLibraryPath(LibraryPath);
             var extrai = new SevenZipExtractor(ficheiro);
             extrai.FileExists += new EventHandler<FileOverwriteEventArgs>(msg.ficheiroRepetido);
@@ -32,38 +30,21 @@ namespace My7zip
 
         public void comprime(string ficheiro, string diretorio)
         {
-            if (string.IsNullOrEmpty(ficheiro))
-            {
-                ficheiro = caminhoFicheiroDefeito(ficheiro, diretorio);
-            }
+            
             SevenZipCompressor.SetLibraryPath(LibraryPath);
             SevenZipCompressor comprimir = new SevenZipCompressor();
             comprimir.ArchiveFormat = OutArchiveFormat.SevenZip;
-            comprimir.CompressionMode = SevenZip.CompressionMode.Create;
+            //comprimir.CompressionMode = SevenZip.CompressionMode.Create;
+            comprimir.CompressionMethod = CompressionMethod.Lzma;
             comprimir.TempFolderPath = tempPath;
+            comprimir.Compressing += new EventHandler<ProgressEventArgs>(compressStatus);
             comprimir.CompressionFinished += new EventHandler<EventArgs>(msg.fimCompressão);
             comprimir.CompressDirectory(diretorio, ficheiro);
         }
 
-        public string diretorioDefeito(string ficheiro, string diretorio)
+        public void compressStatus(object sender, ProgressEventArgs e)
         {
-            //Retorna caminho para descomprimir para um diretorio por defeito (diretorio onde se encontra o ficheiro)
-
-            int ultimoDiretorio = ficheiro.LastIndexOf('\\');
-            diretorio = ficheiro.Substring(0, ultimoDiretorio);
-            return diretorio;
-        }
-
-        public string caminhoFicheiroDefeito(string ficheiro,string diretorio)
-        {
-            // Retorna um nome por defeito para o ficheiro comprimido (nome do diretorio a ser comprimido)
-
-            int tamanhoCaminho = diretorio.Length;
-            int ultimoDiretorio = diretorio.LastIndexOf('\\');    
-            int tamanhoNomeFicheiro = tamanhoCaminho - ultimoDiretorio;
-            string diretorioRaiz = diretorio.Substring(0, ultimoDiretorio);
-            ficheiro = diretorioRaiz + diretorio.Substring(ultimoDiretorio,tamanhoNomeFicheiro)+".7z";
-            return ficheiro;
+            statusCompDescomp.getPercentagem = e.PercentDelta;
         }
     }
 }

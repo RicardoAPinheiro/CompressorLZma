@@ -6,7 +6,7 @@ using System.Windows.Forms;
 
 namespace My7zip
 {
-    class Controler
+    class Controler: IControler
     {
         public Controler()
         {
@@ -15,7 +15,7 @@ namespace My7zip
 
         public void descomprimir(string ficheiro, string dir)
         {
-            Model descomp = new Model();
+            IModel descomp = new Model();
             try
             {
                 testarEntradaDescomp(ficheiro);
@@ -30,7 +30,7 @@ namespace My7zip
 
         public void comprimir(string ficheiro, string dir)
         {
-            Model comp = new Model();
+            IModel comp = new Model();
             try
             {
                 testarEntradaComp(dir);
@@ -84,7 +84,7 @@ namespace My7zip
         }
 
         public event EventHandler sai;
-
+        
         public void Onsair(EventoSair e)
         {
             if (sai != null)

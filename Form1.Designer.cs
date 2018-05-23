@@ -30,6 +30,7 @@
         {
             this.tab_Geral = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.progressBar1 = new System.Windows.Forms.ProgressBar();
             this.bt_Sair = new System.Windows.Forms.Button();
             this.bt_Descomprimir = new System.Windows.Forms.Button();
             this.bt_Diretorio = new System.Windows.Forms.Button();
@@ -39,6 +40,7 @@
             this.label1 = new System.Windows.Forms.Label();
             this.tb_Ficheiro = new System.Windows.Forms.TextBox();
             this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.pb_Compress = new System.Windows.Forms.ProgressBar();
             this.bt_SairComp = new System.Windows.Forms.Button();
             this.bt_Comprimir = new System.Windows.Forms.Button();
             this.bt_DirComp = new System.Windows.Forms.Button();
@@ -49,6 +51,7 @@
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
             this.folderBrowserDialog1 = new System.Windows.Forms.FolderBrowserDialog();
             this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
+            this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
             this.tab_Geral.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tabPage2.SuspendLayout();
@@ -66,6 +69,7 @@
             // 
             // tabPage1
             // 
+            this.tabPage1.Controls.Add(this.progressBar1);
             this.tabPage1.Controls.Add(this.bt_Sair);
             this.tabPage1.Controls.Add(this.bt_Descomprimir);
             this.tabPage1.Controls.Add(this.bt_Diretorio);
@@ -81,6 +85,13 @@
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Descomprimir";
             this.tabPage1.UseVisualStyleBackColor = true;
+            // 
+            // progressBar1
+            // 
+            this.progressBar1.Location = new System.Drawing.Point(21, 173);
+            this.progressBar1.Name = "progressBar1";
+            this.progressBar1.Size = new System.Drawing.Size(345, 13);
+            this.progressBar1.TabIndex = 8;
             // 
             // bt_Sair
             // 
@@ -156,6 +167,7 @@
             // 
             // tabPage2
             // 
+            this.tabPage2.Controls.Add(this.pb_Compress);
             this.tabPage2.Controls.Add(this.bt_SairComp);
             this.tabPage2.Controls.Add(this.bt_Comprimir);
             this.tabPage2.Controls.Add(this.bt_DirComp);
@@ -170,6 +182,13 @@
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Comprimir";
             this.tabPage2.UseVisualStyleBackColor = true;
+            // 
+            // pb_Compress
+            // 
+            this.pb_Compress.Location = new System.Drawing.Point(21, 175);
+            this.pb_Compress.Name = "pb_Compress";
+            this.pb_Compress.Size = new System.Drawing.Size(345, 14);
+            this.pb_Compress.TabIndex = 8;
             // 
             // bt_SairComp
             // 
@@ -237,6 +256,12 @@
             // 
             this.openFileDialog1.FileName = "*.7z";
             // 
+            // backgroundWorker1
+            // 
+            this.backgroundWorker1.WorkerReportsProgress = true;
+            this.backgroundWorker1.DoWork += new System.ComponentModel.DoWorkEventHandler(this.backgroundWorker1_DoWork);
+            this.backgroundWorker1.ProgressChanged += new System.ComponentModel.ProgressChangedEventHandler(this.backgroundWorker1_ProgressChanged);
+            // 
             // My7zip
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -280,6 +305,9 @@
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.TextBox tb_FicheiroComp;
         private System.Windows.Forms.TextBox tb_DirComp;
+        private System.Windows.Forms.ProgressBar progressBar1;
+        private System.ComponentModel.BackgroundWorker backgroundWorker1;
+        public System.Windows.Forms.ProgressBar pb_Compress;
     }
 }
 

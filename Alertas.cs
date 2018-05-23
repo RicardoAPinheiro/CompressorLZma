@@ -1,12 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Windows.Forms;
 
 namespace My7zip
 {
-    class Alertas
+    class Alertas: IAlertas
     {
        public Alertas()
         {
