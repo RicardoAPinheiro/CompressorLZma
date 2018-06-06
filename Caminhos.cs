@@ -20,7 +20,7 @@ namespace My7zip
                 else
                 {
                     return _Diretorio;
-                }                   
+                }
             }
         }
 

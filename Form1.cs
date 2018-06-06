@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Windows.Forms;
-using System.Threading;
 
 namespace My7zip
 {
@@ -15,7 +14,18 @@ namespace My7zip
 
         private void My7z_Load(object sender, EventArgs e)
         {
-
+            try
+            {
+                testaApi();
+            }
+            catch (Exception ex)
+            {
+                DialogResult mensagem = MessageBox.Show("O ficheiro 7z64.dll não existe em c:\\programas\\7-zip\\ \nCopie o ficheiro 7z64.dll para a localização acima indicada. \nA aplicação vai ser encerrada. ", ex.ToString(), MessageBoxButtons.OK, MessageBoxIcon.Question);
+                if (mensagem == System.Windows.Forms.DialogResult.OK)
+                {
+                    System.Windows.Forms.Application.Exit();
+                }
+            }
         }
 
         private void bt_Ficheiro_Click(object sender, EventArgs e)
@@ -44,12 +54,12 @@ namespace My7zip
 
         private void bt_Sair_Click(object sender, EventArgs e)
         {
-            control.Onsair(new EventoSair());
+            control.OnSair(new EventoSair());
         }
 
         private void bt_SairComp_Click(object sender, EventArgs e)
         {
-            control.Onsair(new EventoSair());
+            control.OnSair(new EventoSair());
         }
 
         private void bt_Descomprimir_Click(object sender, EventArgs e)
@@ -82,7 +92,6 @@ namespace My7zip
             };
             try
             {
-                backgroundWorker1.RunWorkerAsync();
                 testarEntradaComp(caminho.diretorio);
                 descompComp comp = new descompComp(control.comprimir);
                 comp.Invoke(caminho.ficheiro, caminho.diretorio);
@@ -92,32 +101,7 @@ namespace My7zip
                 MessageBox.Show("O nome do diretório a comprimir não pode estar vazio", ex.ToString());
             }
         }
-
-        #region stausbar
-
-
-        private int progress = 0;
-        public int getPercentagem;
-
-        private void backgroundWorker1_DoWork(object sender, System.ComponentModel.DoWorkEventArgs e)
-        {
-            
-            while (progress < 100)
-            {
-                Thread.Sleep(1000);
-                this.backgroundWorker1.ReportProgress(getPercentagem);
-                progress += getPercentagem;
-            }
-        }
-
-        private void backgroundWorker1_ProgressChanged(object sender, System.ComponentModel.ProgressChangedEventArgs e)
-        {
-            pb_Compress.Increment(e.ProgressPercentage);
-            
-        }
-    
-        #endregion
-
+        
         #region testaEntrada 
 
         private void testarEntradaDescomp(string ficheiro)
@@ -152,6 +136,15 @@ namespace My7zip
         }
         #endregion
 
-       
+        #region testaSistema
+
+        private void testaApi()
+        {
+            if (!System.IO.File.Exists(@"c:\programas\7-zip\7z64.dll"))
+            {
+                throw new System.IO.FileNotFoundException("7z64.dll não encontrado");
+            }
+        }
+        #endregion
     }
 }

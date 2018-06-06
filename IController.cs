@@ -6,6 +6,6 @@ namespace My7zip
         event EventHandler sai;
         void descomprimir(string ficheiro, string dir);
         void comprimir(string ficheiro, string dir);
-        void Onsair(EventoSair e);
+        void OnSair(EventoSair e);
     }
 }

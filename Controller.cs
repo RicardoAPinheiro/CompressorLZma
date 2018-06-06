@@ -5,7 +5,6 @@ namespace My7zip
 {
     class Controller: IController
     {
-        
         public Controller()
         {
 
@@ -13,13 +12,13 @@ namespace My7zip
 
         public void descomprimir(string ficheiro, string dir)
         {
-            IModel descomp = new Model();
-            descomp.descomprime(ficheiro, dir);           
+            IModel descomp = new Model();           
+           descomp.descomprime(ficheiro, dir);           
         }
 
         public void comprimir(string ficheiro, string dir)
         {
-            IModel comp = new Model();
+            IModel comp = new Model();            
             comp.comprime(ficheiro, dir);            
         }
 
@@ -34,7 +33,7 @@ namespace My7zip
 
         public event EventHandler sai;
         
-        public void Onsair(EventoSair e)
+        public void OnSair(EventoSair e)
         {
             if (sai != null)
             {

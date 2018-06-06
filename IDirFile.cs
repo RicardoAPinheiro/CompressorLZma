@@ -13,7 +13,7 @@ namespace My7zip
             set;
             get;
         }
-        string dirDefeito{get; }
-        string fileDefeito { get; }     
+        string dirDefeito { get; }
+        string fileDefeito { get; }
     }
 }
